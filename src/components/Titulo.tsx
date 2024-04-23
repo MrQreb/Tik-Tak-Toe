@@ -23,21 +23,18 @@ const Titulo = () => {
   //Posiciones de Y
   const [positionY, setPositionY] = useState([]);
 
+  // se activa cada vez que haya un cambio en turns,
+  // checkWinner() se ejecute después de que turns se haya actualizado correctamente.
+  useEffect(() => {
+    checkWinner();
+  }, [turns]);
 
-  const savePostions = (index: number) => {
 
-      //Guardar posicion de X y O
-      if (turns) {
-        setPositionX([...positionX , index]);
-      } else {
-        setPositionY([...positionY, index]);
-      }
-    
-
-  }
   // Función para pintar x o o en el tablero
   const paint = (index: number) => {
     
+   
+
     // Verificar si la celda ya está ocupada
     if (!board[index]) {
      
@@ -47,32 +44,50 @@ const Titulo = () => {
       // Asignar el símbolo correspondiente (X o O) al índice clicado
       newBoard[index] = turns ? 'X' : 'O';
       
+
+     
       // Actualizar el tablero
       setBoard(newBoard);
       
 
-      //Guardar la posicion de X y O
       
+      //Guardar la posicion de X y O
       savePostions(index);
     
       
-
-
+      
+      
       // Cambiar el turno
       setTurns(!turns);
-
+      
+      
       
       setCounter(counter + 1);
       
+    
       
     }
   };
+
+  const savePostions = (index: number) => {
+
+    //Guardar posicion de X y O
+    if (turns) {
+      setPositionX([...positionX , index]);
+    } else {
+      setPositionY([...positionY, index]);
+    }
+  
+
+}
 
   const newGame = ():void => {
 
     setBoard(Array(9).fill(null));
     setTurns(true);
     setCounter(0);
+    setPositionY([]);
+    setPositionX([]);
   }
 
   //Objeto de posiciones ganadoras
@@ -91,12 +106,22 @@ const Titulo = () => {
     //Diagonales
     [ 0, 4, 8 ],
     [ 2, 4, 6 ],
-  
-
 
   ]
 
-  
+  const checkWinner = () => {
+    // Recorrer arreglo de ganadores
+    possitionsWinner.forEach((win) => {
+      // Checar si hay un ganador
+      if (win.every((index) => positionX.includes(index))) {
+        console.log('Gana X')
+        
+      } else if (win.every((index) => positionY.includes(index))) {
+      
+        console.log('Gana X')
+      }
+    });
+  };
 
   
 
@@ -108,21 +133,19 @@ const Titulo = () => {
       <main className='flex justify-center mt-5'>
         <div className='grid grid-cols-3 gap-1 '>
           
-          { board.map(( turn, index) => (
-            <button 
-              
-                key={index} 
-                // Cada que se da click se checa si gana
-                onClick={() => paint(index)
-                  
-                }>
-              
+          {board.map((turn, index) => (
+            <button
+              key={index}
+              // Cada que se da click se checa si gana
+              onClick={() => {
+                paint(index);
+                
+             
+              }}
+            >
               <div className='bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 '>
                 {turn}
-                
-              
               </div>
-
             </button>
           ))}
             
@@ -153,7 +176,7 @@ const Titulo = () => {
       {/* Turno */}
       <div className='mt-5 flex justify-center gap-2'>
         {/* Usar state para cambiar hover */}
-        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${!turns ? 'border-black' : 'border-blue-400'} `}>X</div>
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${!turns  ? 'border-black' : 'border-blue-400'} `}>X</div>
         <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${turns ? 'border-black' : 'border-blue-400'} `}>O</div>
       </div>
 
