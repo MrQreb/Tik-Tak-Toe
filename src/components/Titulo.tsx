@@ -17,10 +17,24 @@ const Titulo = () => {
   //Para saber si hay empate 
   const [ counter, setCounter] = useState(0);
 
-  //
+  //Posiciones de X
   const [positionX, setPositionX] = useState([]);
 
+  //Posiciones de Y
+  const [positionY, setPositionY] = useState([]);
 
+
+  const savePostions = (index: number) => {
+
+      //Guardar posicion de X y O
+      if (turns) {
+        setPositionX([...positionX , index]);
+      } else {
+        setPositionY([...positionY, index]);
+      }
+    
+
+  }
   // Función para pintar x o o en el tablero
   const paint = (index: number) => {
     
@@ -36,9 +50,18 @@ const Titulo = () => {
       // Actualizar el tablero
       setBoard(newBoard);
       
+
+      //Guardar la posicion de X y O
+      
+      savePostions(index);
+    
+      
+
+
       // Cambiar el turno
       setTurns(!turns);
 
+      
       setCounter(counter + 1);
       
       
@@ -52,6 +75,26 @@ const Titulo = () => {
     setCounter(0);
   }
 
+  //Objeto de posiciones ganadoras
+  const possitionsWinner = [
+    
+    // Horizontales
+    [ 0, 1 , 2 ],
+    [ 3, 4 , 5 ],
+    [ 6, 7 , 8 ],
+
+    // Verticales
+    [ 0, 3 , 6 ],
+    [ 1, 4 , 7 ],
+    [ 2, 5 , 8 ],
+
+    //Diagonales
+    [ 0, 4, 8 ],
+    [ 2, 4, 6 ],
+  
+
+
+  ]
 
   
 
@@ -69,7 +112,10 @@ const Titulo = () => {
             <button 
               
                 key={index} 
-                onClick={() => paint(index)}>
+                // Cada que se da click se checa si gana
+                onClick={() => paint(index)
+                  
+                }>
               
               <div className='bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 '>
                 {turn}
@@ -114,7 +160,7 @@ const Titulo = () => {
       <button
         disabled={counter <= 8 ? true : false}
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase  ${counter <= 8 ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
+        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400  ${counter <= 8 ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
       >
         jugar de nuevo
       </button>
