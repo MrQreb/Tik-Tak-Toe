@@ -1,0 +1,126 @@
+import React, { useState, useEffect } from 'react';
+import animations from '../animations/animations';
+
+const Titulo = () => {
+  // Carga las animaciones
+  useEffect(() => {
+    animations();
+  }, []);
+
+  // Inicializa el tablero
+  const [board, setBoard] = useState(Array(9).fill(null));
+  // Inicializa el turno
+
+  //turn es un booleano que indica si es el turno de X o de O
+  const [turns, setTurns] = useState(true);
+
+  //Para saber si hay empate 
+  const [ counter, setCounter] = useState(0);
+
+  //
+  const [positionX, setPositionX] = useState([]);
+
+
+  // Función para pintar x o o en el tablero
+  const paint = (index: number) => {
+    
+    // Verificar si la celda ya está ocupada
+    if (!board[index]) {
+     
+      // Crear una copia del tablero actual
+      const newBoard = [...board];
+      
+      // Asignar el símbolo correspondiente (X o O) al índice clicado
+      newBoard[index] = turns ? 'X' : 'O';
+      
+      // Actualizar el tablero
+      setBoard(newBoard);
+      
+      // Cambiar el turno
+      setTurns(!turns);
+
+      setCounter(counter + 1);
+      
+      
+    }
+  };
+
+  const newGame = ():void => {
+
+    setBoard(Array(9).fill(null));
+    setTurns(true);
+    setCounter(0);
+  }
+
+
+  
+
+  
+
+  return (
+    <>
+      <h1 className="text-8xl text-center mt-10 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
+      <img className='m-auto mt-10 nyancat w-28 ' src={'./public/nyancat.svg'} alt="nyancat" />
+
+      <main className='flex justify-center mt-5'>
+        <div className='grid grid-cols-3 gap-1 '>
+          
+          { board.map(( turn, index) => (
+            <button 
+              
+                key={index} 
+                onClick={() => paint(index)}>
+              
+              <div className='bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 '>
+                {turn}
+                
+              
+              </div>
+
+            </button>
+          ))}
+            
+            
+
+        </div>
+
+
+       
+        {/* lineas */}
+  
+        {/* Verticales */}
+        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[2px] mt-8 opacity-60'></div> */}
+        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[330px] mt-8 opacity-60'></div> */}
+        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60'></div> */}
+        
+        {/* Horizontales */}
+        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60'></div> */}
+        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60'></div> */}
+        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60'></div> */}
+
+        {/* Diagonales */}
+        {/* <div className='w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[275px] opacity-60 rotate-45 ml-[65px]'></div> */}
+        {/* <div className='w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60 rotate-[130deg]'></div> */}
+
+      </main>
+
+      {/* Turno */}
+      <div className='mt-5 flex justify-center gap-2'>
+        {/* Usar state para cambiar hover */}
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${!turns ? 'border-black' : 'border-blue-400'} `}>X</div>
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${turns ? 'border-black' : 'border-blue-400'} `}>O</div>
+      </div>
+
+      <button
+        disabled={counter <= 8 ? true : false}
+        onClick={ () =>  newGame()}
+        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase  ${counter <= 8 ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
+      >
+        jugar de nuevo
+      </button>
+      
+    </>
+  );
+};
+
+export default Titulo;
