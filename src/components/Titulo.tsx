@@ -158,13 +158,31 @@ const Titulo = () => {
         return;
       }
 
+      //Gana x en la ultima jugada
+      if (counter === 9 && positionX.length === 5) {
+        setWinner('Gana X');
+        setGameFinished(true);
+        return;
+      }
+
+      //Gana y en la ultima jugada
+      if (counter === 9 && positionY.length === 5) {
+        setWinner('Gana O');
+        setGameFinished(true);
+        return;
+      }
+
       // Empatan
      
-      if (counter === 9) {
+      if (counter === 9 && !winner) {
         setWinner('Empate');
         setGameFinished(true);
         return;
       }
+
+      
+
+
      
     });
   };
