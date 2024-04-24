@@ -30,6 +30,8 @@ const Titulo = () => {
   //Posiciones de Y
   const [positionY, setPositionY] = useState([]);
 
+  const [lineWinner, setLineWinner] = useState('');
+
   // se activa cada vez que haya un cambio en turns,
   // checkWinner() se ejecute después de que turns se haya actualizado correctamente.
   useEffect(() => {
@@ -88,6 +90,8 @@ const Titulo = () => {
 
 }
 
+
+
   const newGame = ():void => {
 
     setBoard(Array(9).fill(null));
@@ -124,10 +128,15 @@ const Titulo = () => {
     possitionsWinner.forEach((win ,index) => {
       // Checar si hay un ganador
       if (win.every((index) => positionX.includes(index))) {
+
+        setLineWinner(index);
         console.log('Gana X')
         console.log(index);
         setWinner('Gana X');
         setGameFinished(true);
+
+        //Le paso el index de la linea ganadora
+        drawLineWinner(index);
         return;
       } else if (win.every((index) => positionY.includes(index))) {
       
@@ -148,8 +157,14 @@ const Titulo = () => {
     });
   };
 
+
+  //Dibujar linea ganadora en base al arreglo de ganadores
+  // const drawLineWinner = (index: number) => {
+  //   console.log(index);
+  // }
+
   
-  const isDisabled = counter <= 8 || gameFinished ;
+  
   return (
     <>
       
@@ -192,12 +207,12 @@ const Titulo = () => {
         {/* lineas */}
   
         {/* Verticales */}
+        {/* <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60`}></div> */}
         {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[2px] mt-8 opacity-60'></div> */}
         {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[330px] mt-8 opacity-60'></div> */}
-        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60'></div> */}
         
         {/* Horizontales */}
-        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60'></div> */}
+        <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60  ${ lineWinner === 0 ? 'visible'  : 'visible' } ` }></div>
         {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60'></div> */}
         {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60'></div> */}
 
