@@ -2,6 +2,13 @@ import React, { useState, useEffect } from 'react';
 import animations from '../animations/animations';
 
 const Titulo = () => {
+
+  // Guarda quien gana
+  const [winner, setWinner] = useState<string | null>(''); 
+  
+  const [gameFinished, setGameFinished] = useState<boolean | null>(false); 
+
+
   // Carga las animaciones
   useEffect(() => {
     animations();
@@ -88,6 +95,9 @@ const Titulo = () => {
     setCounter(0);
     setPositionY([]);
     setPositionX([]);
+    setGameFinished(false);
+    setWinner('');
+
   }
 
   //Objeto de posiciones ganadoras
@@ -111,39 +121,63 @@ const Titulo = () => {
 
   const checkWinner = () => {
     // Recorrer arreglo de ganadores
-    possitionsWinner.forEach((win) => {
+    possitionsWinner.forEach((win ,index) => {
       // Checar si hay un ganador
       if (win.every((index) => positionX.includes(index))) {
         console.log('Gana X')
-        
+        console.log(index);
+        setWinner('Gana X');
+        setGameFinished(true);
+        return;
       } else if (win.every((index) => positionY.includes(index))) {
       
         console.log('Gana X')
+        setWinner('Gana O');
+        setGameFinished(true);
+        return;
       }
+
+      // Empatan
+     
+      if (counter === 9) {
+        setWinner('Empate');
+        setGameFinished(true);
+        return;
+      }
+     
     });
   };
 
   
-
+  const isDisabled = counter <= 8 || gameFinished ;
   return (
     <>
+      
       <h1 className="text-8xl text-center mt-10 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
       <img className='m-auto mt-10 nyancat w-28 ' src={'./public/nyancat.svg'} alt="nyancat" />
 
+      /* Mostrar ganador */
+      { gameFinished && 
+        ( <p className='text-6xl text-center font-pixel'>{ winner }</p> )
+      }
+      {/* Tablero */}}
       <main className='flex justify-center mt-5'>
         <div className='grid grid-cols-3 gap-1 '>
           
           {board.map((turn, index) => (
             <button
               key={index}
+
+              // Una vez gana no deja dar click
+              disabled={winner}
               // Cada que se da click se checa si gana
               onClick={() => {
                 paint(index);
-                
-             
+
               }}
             >
-              <div className='bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 '>
+           
+              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 ${winner ? 'border-red-600 bg-red-200 hover:border-red-300' : 'border-black'}`}>
                 {turn}
               </div>
             </button>
@@ -181,9 +215,14 @@ const Titulo = () => {
       </div>
 
       <button
-        disabled={counter <= 8 ? true : false}
+        disabled={   (isDisabled ? true : false)
+          // (!gameFinished ? true : false)   
+          // counter <= 8 ? true : false ||
+
+          
+        }
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400  ${counter <= 8 ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
+        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400  ${isDisabled ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
       >
         jugar de nuevo
       </button>
