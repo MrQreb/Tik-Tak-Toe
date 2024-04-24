@@ -101,6 +101,7 @@ const Titulo = () => {
     setPositionX([]);
     setGameFinished(false);
     setWinner('');
+    setLineWinner('');
 
   }
 
@@ -169,10 +170,7 @@ const Titulo = () => {
   };
 
 
-  //Dibujar linea ganadora en base al arreglo de ganadores
-  // const drawLineWinner = (index: number) => {
-  //   console.log(index);
-  // }
+
 
   
   
@@ -182,10 +180,11 @@ const Titulo = () => {
       <h1 className="text-8xl text-center mt-10 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
       <img className='m-auto mt-10 nyancat w-28 ' src={'./public/nyancat.svg'} alt="nyancat" />
 
-      /* Mostrar ganador */
+      {/* Mostrar ganador */}
       { gameFinished && 
         ( <p className='text-6xl text-center font-pixel'>{ winner }</p> )
       }
+
       {/* Tablero */}}
       <main className='flex justify-center mt-5'>
         <div className='grid grid-cols-3 gap-1 '>
@@ -203,7 +202,7 @@ const Titulo = () => {
               }}
             >
            
-              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400 ${winner ? 'border-red-600 bg-red-200 hover:border-red-300' : 'border-black'}`}>
+              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400  ${winner ? 'border-red-600 bg-red-200 hover:border-red-300' : 'border-black'}`}>
                 {turn}
               </div>
             </button>
@@ -215,21 +214,22 @@ const Titulo = () => {
 
 
        
+        {/* Se dibujan en base a la posicion de possitionsWinner estan ocultas se muestran con useState  */}
         {/* lineas */}
   
         {/* Verticales */}
-        {/* <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60`}></div> */}
-        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[2px] mt-8 opacity-60'></div> */}
-        {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[330px] mt-8 opacity-60'></div> */}
+        <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60 ${ lineWinner === 3 ? 'visible'  : 'hidden' } `}></div>
+        <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[2px] mt-8 opacity-60    ${ lineWinner === 4 ? 'visible'  : 'hidden' }   `}></div>
+        <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[330px] mt-8 opacity-60  ${ lineWinner === 5 ? 'visible'  : 'hidden' } `}></div>
         
         {/* Horizontales */}
-        {/* <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60  ${ lineWinner === 0 ? 'visible'  : 'visible' } ` }></div> */}
-        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60'></div> */}
-        {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60'></div> */}
+        <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60       ${ lineWinner === 0 ? 'visible'  : 'hidden' } ` }></div>
+        <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60  ${ lineWinner === 1 ? 'visible'  : 'hidden' } ` }></div>
+        <div className={`'w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60 ${ lineWinner === 2 ? 'visible'  : 'hidden' } ` }></div>
 
         {/* Diagonales */}
-        {/* <div className='w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[275px] opacity-60 rotate-45 ml-[65px]'></div> */}
-        {/* <div className='w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60 rotate-[130deg]'></div> */}
+        <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[275px] opacity-60 rotate-45 ml-[65px] ${ lineWinner === 6 ? 'visible'  : 'hidden' } ` }></div>
+        <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60 rotate-[130deg]     ${ lineWinner === 7 ? 'visible'  : 'hidden' } `}></div>
 
       </main>
 
