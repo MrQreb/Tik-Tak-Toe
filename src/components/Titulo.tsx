@@ -177,8 +177,8 @@ const Titulo = () => {
   return (
     <>
       
-      <h1 className="text-8xl text-center mt-10 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
-      <img className='m-auto mt-10 nyancat w-28 ' src={'./public/nyancat.svg'} alt="nyancat" />
+      <h1 className="text-6xl text-center mt-4 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
+      {/* <img className='m-auto  nyancat w-24 ' src={'./public/nyancat.svg'} alt="nyancat" /> */}
 
       {/* Mostrar ganador */}
       { gameFinished && 
@@ -186,7 +186,7 @@ const Titulo = () => {
       }
 
       {/* Tablero */}}
-      <main className='flex justify-center mt-5'>
+      <main className='flex justify-center mt-1'>
         <div className='grid grid-cols-3 gap-1 '>
           
           {board.map((turn, index) => (
@@ -202,7 +202,7 @@ const Titulo = () => {
               }}
             >
            
-              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400  ${winner ? 'border-red-600 bg-red-200 hover:border-red-300' : 'border-black'}`}>
+              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400  ${winner ? 'border-gray-300 bg-gray-200 hover:border-black' : 'border-black'}`}>
                 {turn}
               </div>
             </button>
@@ -213,9 +213,10 @@ const Titulo = () => {
         </div>
 
 
+
        
         {/* Se dibujan en base a la posicion de possitionsWinner estan ocultas se muestran con useState  */}
-        {/* lineas */}
+        {/* lineas ocultas hasta que sabe que linea gano */}
   
         {/* Verticales */}
         <div className={`w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[-330px] mt-8 opacity-60 ${ lineWinner === 3 ? 'visible'  : 'hidden' } `}></div>
@@ -243,7 +244,7 @@ const Titulo = () => {
       <button
       
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400 bg-gray-300  bg-green-500 boder-4 hover:scale-110 `}
+        className={`w-25 h-20 p-4 bg-gray-300 text-white font-pixel mt-6 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400 bg-gray-300  bg-green-500 boder-4 hover:scale-110 `}
       >
         jugar de nuevo
       </button>
