@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import animations from '../animations/animations';
 
 const Titulo = () => {
 
   // Guarda quien gana
-  const [winner, setWinner] = useState<string | null>(''); 
+  const [winner, setWinner] = useState<string>(''); 
   
-  const [gameFinished, setGameFinished] = useState<boolean | null>(false); 
+  // Guarda si el juego termino
+  const [gameFinished, setGameFinished] = useState<boolean>(false); 
 
+  
 
   // Carga las animaciones
   useEffect(() => {
@@ -16,8 +18,8 @@ const Titulo = () => {
 
   // Inicializa el tablero
   const [board, setBoard] = useState(Array(9).fill(null));
+  
   // Inicializa el turno
-
   //turn es un booleano que indica si es el turno de X o de O
   const [turns, setTurns] = useState(true);
 
@@ -25,12 +27,16 @@ const Titulo = () => {
   const [ counter, setCounter] = useState(0);
 
   //Posiciones de X
-  const [positionX, setPositionX] = useState([]);
+  const [positionX, setPositionX] = useState<number[]>([]);
 
   //Posiciones de Y
-  const [positionY, setPositionY] = useState([]);
+  const [positionY, setPositionY] = useState<number[]>([]);
 
-  const [lineWinner, setLineWinner] = useState('');
+
+  //Creo type para saber que tipo de dato es lineWinner
+  type LineWinnerType = number | string;
+
+  const [lineWinner, setLineWinner] = useState<LineWinnerType>('');
 
   // se activa cada vez que haya un cambio en turns,
   // checkWinner() se ejecute después de que turns se haya actualizado correctamente.
@@ -159,14 +165,14 @@ const Titulo = () => {
       }
 
       //Gana x en la ultima jugada
-      if (counter === 9 && positionX.length === 5) {
+      if (counter === 9 && !turns) {
         setWinner('Gana X');
         setGameFinished(true);
         return;
       }
 
       //Gana y en la ultima jugada
-      if (counter === 9 && positionY.length === 5) {
+      if ( counter === 9 && turns) {
         setWinner('Gana O');
         setGameFinished(true);
         return;
@@ -203,7 +209,7 @@ const Titulo = () => {
         ( <p className='text-6xl text-center font-pixel'>{ winner }</p> )
       }
 
-      {/* Tablero */}}
+      {/* Tablero */}
       <main className='flex justify-center mt-1'>
         <div className='grid grid-cols-3 gap-1 '>
           
@@ -212,7 +218,7 @@ const Titulo = () => {
               key={index}
 
               // Una vez gana no deja dar click
-              disabled={winner}
+              disabled={  gameFinished }
               // Cada que se da click se checa si gana
               onClick={() => {
                 paint(index);
@@ -244,7 +250,7 @@ const Titulo = () => {
         {/* Horizontales */}
         <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60       ${ lineWinner === 0 ? 'visible'  : 'hidden' } ` }></div>
         <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60  ${ lineWinner === 1 ? 'visible'  : 'hidden' } ` }></div>
-        <div className={`'w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60 ${ lineWinner === 2 ? 'visible'  : 'hidden' } ` }></div>
+        <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60  ${ lineWinner === 2 ? 'visible'  : 'hidden' } ` }></div>
 
         {/* Diagonales */}
         <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[275px] opacity-60 rotate-45 ml-[65px] ${ lineWinner === 6 ? 'visible'  : 'hidden' } ` }></div>
