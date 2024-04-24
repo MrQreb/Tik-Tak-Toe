@@ -129,19 +129,30 @@ const Titulo = () => {
       // Checar si hay un ganador
       if (win.every((index) => positionX.includes(index))) {
 
+        console.log(index)
+        //Le paso el index de la linea ganadora
         setLineWinner(index);
-        console.log('Gana X')
-        console.log(index);
+        
+        // Guardar el ganador
         setWinner('Gana X');
+
+        //permite reinicar el juego
         setGameFinished(true);
 
-        //Le paso el index de la linea ganadora
-        drawLineWinner(index);
+        
         return;
       } else if (win.every((index) => positionY.includes(index))) {
       
-        console.log('Gana X')
+        
+        console.log(index)
+        //Le paso el index de la linea ganadora
+        setLineWinner(index);
+
+        
+        // Guardar el ganador
         setWinner('Gana O');
+        
+        //permite reinicar el juego
         setGameFinished(true);
         return;
       }
@@ -212,7 +223,7 @@ const Titulo = () => {
         {/* <div className='w-1 h-1/2 bg-blue-400 font-pixel absolute ml-[330px] mt-8 opacity-60'></div> */}
         
         {/* Horizontales */}
-        <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60  ${ lineWinner === 0 ? 'visible'  : 'visible' } ` }></div>
+        {/* <div className={`w-[485px] h-1 bg-blue-400 font-pixel absolute mt-20 opacity-60  ${ lineWinner === 0 ? 'visible'  : 'visible' } ` }></div> */}
         {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60'></div> */}
         {/* <div className='w-[485px] h-1 bg-blue-400 font-pixel absolute mt-[408px] opacity-60'></div> */}
 
