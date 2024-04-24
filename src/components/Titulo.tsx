@@ -215,14 +215,9 @@ const Titulo = () => {
       </div>
 
       <button
-        disabled={   (isDisabled ? true : false)
-          // (!gameFinished ? true : false)   
-          // counter <= 8 ? true : false ||
-
-          
-        }
+      
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400  ${isDisabled ? 'bg-gray-300' : 'bg-green-500 boder-4 hover:scale-110 '}`}
+        className={`w-25 h-20 p-6 bg-gray-300 text-white font-pixel mt-5 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400 bg-gray-300  bg-green-500 boder-4 hover:scale-110 `}
       >
         jugar de nuevo
       </button>
