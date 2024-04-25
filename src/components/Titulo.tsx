@@ -265,7 +265,7 @@ const Titulo = () => {
 
         {/* Diagonales */}
         <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[275px] opacity-60 rotate-45 ml-[65px] ${ lineWinner === 6 ? 'visible'  : 'hidden' } ` }></div>
-        <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[245px] opacity-60 rotate-[130deg]     ${ lineWinner === 7 ? 'visible'  : 'hidden' } `}></div>
+        <div className={`w-[570px] h-1 bg-blue-400 font-pixel absolute mt-[245px]  rotate-[130deg]     ${ lineWinner === 7 ? 'visible animate-pulse'  : 'hidden' } `}></div>
 
       </main>
 
@@ -273,14 +273,14 @@ const Titulo = () => {
       <div className='mt-5 flex justify-center gap-2'>
         
         {/* Mostrar quien sigue */}
-        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4    ${!turns  ? 'border-black ' : 'border-blue-400'} `}>X</div>
-        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${turns ? 'border-black' : 'border-blue-400'} `}>O</div>
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4    ${!turns  ? 'border-black ' : 'border-blue-400 animate-pulse'} `}>X</div>
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${turns ? 'border-black' :  'border-blue-400  animate-pulse'} `}>O</div>
       </div>
 
       <button
       
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-4  text-white font-pixel mt-6 text-3xl m-auto block border-[3px] border-black uppercase shadow-2xl shadow-green-400  bg-green-500 boder-4 hover:scale-110 rounded-md`}
+        className={`w-25 h-20 p-4  text-white font-pixel mt-6 text-3xl m-auto block border-[3px] border-black uppercase shadow-2xl shadow-green-400  bg-green-500 boder-4 hover:animate-bounce rounded-md`}
       >
         jugar de nuevo
       </button>
