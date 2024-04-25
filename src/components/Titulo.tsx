@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import animations from '../animations/animations';
+import animations  from '../animations/animations';
+
 
 const Titulo = () => {
 
@@ -15,6 +16,8 @@ const Titulo = () => {
   useEffect(() => {
     animations();
   }, []);
+
+  
 
   // Inicializa el tablero
   const [board, setBoard] = useState(Array(9).fill(null));
@@ -38,13 +41,23 @@ const Titulo = () => {
 
   const [lineWinner, setLineWinner] = useState<LineWinnerType>('');
 
+  // //Para determinar animacion
+  // //true para x, false para O
+  // const [animationTurn, setAnimationTurn] = useState<boolean>(true);
+
   // se activa cada vez que haya un cambio en turns,
   // checkWinner() se ejecute después de que turns se haya actualizado correctamente.
   useEffect(() => {
     checkWinner();
   }, [turns]);
 
+  //Para empatar
+  useEffect(() => {
+    checkWinner();
+  }, [counter]);
 
+
+  
   // Función para pintar x o o en el tablero
   const paint = (index: number) => {
     
@@ -70,14 +83,17 @@ const Titulo = () => {
       savePostions(index);
     
       
-      
+       
+      setCounter(counter + 1);
       
       // Cambiar el turno
       setTurns(!turns);
       
+      //Cambia la animacion
+      setAnimationTurn(!animationTurn);
       
       
-      setCounter(counter + 1);
+     
       
     
       
@@ -133,58 +149,53 @@ const Titulo = () => {
   const checkWinner = () => {
     // Recorrer arreglo de ganadores
     possitionsWinner.forEach((win ,index) => {
-      // Checar si hay un ganador
-      if (win.every((index) => positionX.includes(index))) {
-
-        console.log(index)
-        //Le paso el index de la linea ganadora
-        setLineWinner(index);
-        
-        // Guardar el ganador
-        setWinner('Gana X');
-
-        //permite reinicar el juego
-        setGameFinished(true);
-
-        
-        return;
-      } else if (win.every((index) => positionY.includes(index))) {
       
-        
-        console.log(index)
-        //Le paso el index de la linea ganadora
-        setLineWinner(index);
-
-        
-        // Guardar el ganador
-        setWinner('Gana O');
-        
-        //permite reinicar el juego
-        setGameFinished(true);
-        return;
-      }
-
-      //Gana x en la ultima jugada
-      if (counter === 9 && !turns) {
+       // Gana x en la ultima jugada
+       if (counter === 9 && !turns) {
         setWinner('Gana X');
         setGameFinished(true);
+        setLineWinner(index);
         return;
       }
 
-      //Gana y en la ultima jugada
-      if ( counter === 9 && turns) {
-        setWinner('Gana O');
-        setGameFinished(true);
-        return;
-      }
 
       // Empatan
-     
-      if (counter === 9 && !winner) {
+      if (counter === 9) {
         setWinner('Empate');
         setGameFinished(true);
         return;
+        
       }
+      // Checar si hay un ganador
+      if (win.every((index) => positionX.includes(index))) {
+
+       
+        //Le paso el index de la linea ganadora
+        setLineWinner(index);
+        
+        // Guardar el ganador
+        setWinner('Gana X');
+
+        //permite reinicar el juego
+        setGameFinished(true);
+
+        
+        return;
+      } 
+       if (win.every((index) => positionY.includes(index))) {
+      
+        //Le paso el index de la linea ganadora
+        setLineWinner(index);
+        
+        // Guardar el ganador
+        setWinner('Gana O');
+        
+        //permite reinicar el juego
+        setGameFinished(true);
+        return;
+      } 
+
+     
 
       
 
@@ -195,23 +206,22 @@ const Titulo = () => {
 
 
 
-
   
   
   return (
     <>
       
-      <h1 className="text-6xl text-center mt-4 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1>
+      {/* <h1 className="text-6xl text-center mt-4 font-serif uppercase titulo text-gray-600 font-extrabold">Gato</h1> */}
       {/* <img className='m-auto  nyancat w-24 ' src={'./public/nyancat.svg'} alt="nyancat" /> */}
 
       {/* Mostrar ganador */}
-      { gameFinished && 
-        ( <p className='text-6xl text-center font-pixel'>{ winner }</p> )
-      }
+      <p className={`text-6xl text-center font-pixel mt-16 mb-5 animationWinner ${ gameFinished ? 'visible ' : 'hidden'} `}>{winner}</p>
 
-      {/* Tablero */}
-      <main className='flex justify-center mt-1'>
-        <div className='grid grid-cols-3 gap-1 '>
+ 
+      <main className='flex justify-center mt-16'>
+        
+        {/* Tablero */}
+        <div className={`grid grid-cols-3 gap-1`}>
           
           {board.map((turn, index) => (
             <button
@@ -226,7 +236,8 @@ const Titulo = () => {
               }}
             >
            
-              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400  ${winner ? 'border-gray-300 bg-gray-200 hover:border-black' : 'border-black'}`}>
+              {/* Cada celda */}
+              <div className={`bg-gray-300 h-40 w-40 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4 border-black hover:scale-125 hover:border-blue-400  ${winner ? 'border-gray-300 bg-gray-200 hover:border-black' : 'border-black'} `}>
                 {turn}
               </div>
             </button>
@@ -260,15 +271,16 @@ const Titulo = () => {
 
       {/* Turno */}
       <div className='mt-5 flex justify-center gap-2'>
-        {/* Usar state para cambiar hover */}
-        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${!turns  ? 'border-black' : 'border-blue-400'} `}>X</div>
+        
+        {/* Mostrar quien sigue */}
+        <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4    ${!turns  ? 'border-black ' : 'border-blue-400'} `}>X</div>
         <div className={`bg-gray-300 h-24 w-24 flex items-center justify-center text-4xl font-pixel text-gray-600 border-solid border-4  ${turns ? 'border-black' : 'border-blue-400'} `}>O</div>
       </div>
 
       <button
       
         onClick={ () =>  newGame()}
-        className={`w-25 h-20 p-4 bg-gray-300 text-white font-pixel mt-6 text-3xl m-auto block border-2 border-black uppercase shadow-2xl shadow-green-400 bg-gray-300  bg-green-500 boder-4 hover:scale-110 `}
+        className={`w-25 h-20 p-4  text-white font-pixel mt-6 text-3xl m-auto block border-[3px] border-black uppercase shadow-2xl shadow-green-400  bg-green-500 boder-4 hover:scale-110 rounded-md`}
       >
         jugar de nuevo
       </button>
