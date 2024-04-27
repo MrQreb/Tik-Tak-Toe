@@ -1,0 +1,7 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&family=VT323&display=swap');
+/* Importar los estilos del framework */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
