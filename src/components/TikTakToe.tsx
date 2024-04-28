@@ -202,37 +202,37 @@ const TikTakToe = () => {
         {/* Se dibujan en base a la posicion de possitionsWinner estan ocultas se muestran con useState  */}
         {/* lineas ocultas hasta que sabe que linea gano */}
         {/* Verticales */}
-        <div className={` bg-red-600 absolute opacity-60
+        <div className={` bg-red-700 absolute opacity-60
                          xl:ml-[-320px] xl:mt-4 xl:w-1 xl:h-1/2 
                          md:ml-[-260px] md:mt-8 md:w-1 md:h-1/3 
                          xs:ml-[-221px] xs:mt-8 xs:w-1 xs:h-1/3 
                          ${ lineWinner === 3 ? 'visible'  : 'hidden' } `}>
         </div>
 
-        <div className={` bg-red-600 absolute opacity-60 
+        <div className={` bg-red-700 absolute opacity-60 
                           xl:w-1 xl:h-1/2 xl:ml-[2px] xl:mt-8
                           md:w-1 md:h-1/3 md:ml-[2px] md:mt-8
                           xs:w-1 xs:h-1/3 xs:ml-[2px] xs:mt-8
                           ${ lineWinner === 4 ? 'visible'  : 'hidden' }   `}>
         </div>
 
-        <div className={` bg-red-600 absolute opacity-60 
+        <div className={` bg-red-700 absolute opacity-60 
                           xl:ml-[330px] xl:mt-8 xl:w-1 xl:h-1/2
                           md:ml-[260px] md:mt-8 md:w-1 md:h-1/3
                           xs:ml-[225px] xs:mt-8 xs:w-1 xs:h-1/3
                           ${ lineWinner === 5 ? 'visible'  : 'hidden' } `}></div>
         {/* Horizontales */}
-        <div className={` bg-red-600 absolute opacity-60
+        <div className={` bg-red-700 absolute opacity-60
                            xl:w-[470px] xl:h-1 xl:mt-20
                            md:w-[370px] md:h-1 md:mt-16
                            xs:w-[320px] xs:h-1 xs:mt-14
                            ${ lineWinner === 0 ? 'visible'  : 'hidden' } ` }></div>
-        <div className={`bg-red-600 absolute opacity-60
+        <div className={`bg-red-700 absolute opacity-60
                           xl:w-[470px] xl:h-1 xl:mt-[245px]
                           md:w-[370px] md:h-1 md:mt-[190px]
                           xs:w-[320px] xs:h-1 xs:mt-[168px]
                           ${ lineWinner === 1 ? 'visible'  : 'hidden' } ` }></div>
-        <div className={`bg-red-600 absolute opacity-60
+        <div className={`bg-red-700 absolute opacity-60
                           xl:w-[470px] xl:h-1 xl:mt-[408px]
                           md:w-[370px] md:h-1 md:mt-[320px]
                           xs:w-[320px] xs:h-1 xs:mt-[280px]
@@ -240,13 +240,13 @@ const TikTakToe = () => {
 
         </div>
         {/* Diagonales */}
-        <div className={`bg-red-600 absolute opacity-60 rotate-45 
+        <div className={`bg-red-700 absolute opacity-60 rotate-45 
                           xl:w-[530px] xl:h-1 xl:mt-[275px] xl:ml-[60px]
                           md:w-[420px] md:h-1 md:mt-[220px] md:ml-[65px]
                           xs:w-[360px] xs:h-1 xs:mt-[170px] 
                           ${ lineWinner === 6 ? 'visible'  : 'hidden' } ` }>
         </div>
-        <div className={`bg-red-600 absolute rotate-[130deg]
+        <div className={`bg-red-700 absolute rotate-[130deg]
                           xl:w-[570px] xl:h-1 xl:mt-[245px]
                           md:w-[450px] md:h-1 md:mt-[190px]
                           xs:w-[370px] xs:h-1 xs:mt-[170px]
