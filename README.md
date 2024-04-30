@@ -11,7 +11,6 @@ Sera el juego de gato clásico, que se jugará con click. Después de cada click
 
 Cada vez que el usuario se posicione en uno de los recuadros sabra en cual está posicionado.
 
-
 ## Tecnologías a utilizar  
 El juego del gato estará programado Javascript. Utilizando un framework llamado **React**.
 
@@ -72,3 +71,6 @@ function Video({ video }) {
 ```
 
 [ Documentación React](https://react.dev/) 
+
+## Pruebalo
+[ Gato ](https://gato-react-devqreb.netlify.app/) 
